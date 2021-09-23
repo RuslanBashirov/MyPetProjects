@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Author</title>
+    <link rel="stylesheet" th:href="@{/static/css/author.css}" />
+</head>
+<body>
+
+
+<nav class="zone blue sticky">
+    <ul class="main-nav">
+        <li><a href="/painting/paintings">Paintings</a></li>
+        <li><a href="/author/authors">Authors</a></li>
+        <li>             </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{'/author/edit/' + ${authorId}}">Update author</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{'/painting/new/'+${authorId}}">Add painting</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <form th:method="DELETE" th:action="@{'/author/' + ${authorId}}">
+                <input type="submit" value="delete"/>
+            </form>
+        </li>
+        <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/logout}">Log Out</a>
+        </li>
+        <li class="push" sec:authorize="!hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/login}">Log in</a>
+        </li>
+    </ul>
+</nav>
+
+
+<div class="container">
+    <!--<img class="cover" th:src="@{'/static/images/' + ${painting.getTitle().toLowerCase()} + '.jpg'}">-->
+    <div class="coverText">
+        <h1 th:text="${author.getFirstName()} + ${author.getLastName()}"></h1>
+        <p th:text="${author.getEmail()}"></p>
+        <p>List of his paintings</p>
+        <ul class="main-nav" th:each="painting:${listOfPaintingsOfAuthor}">
+            <li style="font-size: 20px"><a th:href="@{/painting/{id}(id=${painting.getId()})}"
+                   th:text="${painting.getTitle()}">painting</a></li>
+        </ul>
+    </div>
+</div>
+<footer class="zone"><p>2021 No rights reserved, by the way I'm looking for a developer vacancy</a></p></footer>
+</body>
+</html>

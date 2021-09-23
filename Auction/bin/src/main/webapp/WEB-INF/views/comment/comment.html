@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+    <link rel="stylesheet" th:href="@{/static/css/comment.css}" />
+</head>
+<body>
+<nav class="zone blue sticky">
+    <ul class="main-nav">
+        <li><a href="/painting/paintings">Paintings</a></li>
+        <li><a href="/author/authors">Authors</a></li>
+        <li>             </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/comment/edit/{commentId}(commentId=${comment.getId()})}">
+                Update comment</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <form th:method="DELETE"
+                  th:action="@{/comment/{commentId}(commentId=${comment.getId()})}">
+                <input type="submit" value="Delete comment"/>
+            </form>
+        </li>
+        <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/logout}">Log Out</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="coverText"><h1 th:text="${comment.getText()}">comment</h1></div>
+</div>
+<footer class="zone"><p>2021 No rights reserved, by the way I'm looking for a developer vacancy</p></footer>
+</body>
+</html>
+

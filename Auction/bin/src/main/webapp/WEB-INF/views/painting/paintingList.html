@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All paintings</title>
+    <link rel="stylesheet" th:href="@{/static/css/paintingList.css}" />
+</head>
+
+<body>
+<nav class="zone blue sticky">
+    <ul class="main-nav">
+        <li><a href="/painting/paintings">Paintings</a></li>
+        <li><a href="/author/authors">Authors</a></li>
+        <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/logout}">Log Out</a>
+        </li>
+        <li class="push" sec:authorize="!hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/login}">Log in</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="zone blue grid-wrapper">
+    <div class="card zone" th:each="painting:${paintingList}">
+        <img th:src="@{'/static/images/' + ${painting.getTitle().toLowerCase()} + '.jpg'}"/>
+        <div class="text">
+            <h1 th:text="${painting.getTitle()}">painting</h1>
+            <p th:text="${painting.getAuthor().getFirstName()} + ' '
+            + ${painting.getAuthor().getLastName()}">name and surname</p>
+            <a th:href="@{/painting/{id}(id=${painting.getId()})}">
+                <button>Details</button>
+            </a>
+        </div>
+    </div>
+</div>
+<footer class="zone"><p>2021 No rights reserved, by the way I'm looking for a developer vacancy</p></footer>
+</body>
+</html>

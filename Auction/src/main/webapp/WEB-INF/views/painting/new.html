@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New painting</title>
+    <link rel="stylesheet" th:href="@{/static/css/paintingEdit.css}" />
+</head>
+<body>
+
+<nav class="zone blue sticky">
+    <ul class="main-nav">
+        <li><a href="/painting/paintings">Paintings</a></li>
+        <li><a href="/author/authors">Authors</a></li>
+        <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/logout}">Log Out</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="coverText">
+        <form th:method="POST" th:action="@{/painting/create/{authorId}(authorId=${authorId})}"
+              th:object="${newPainting}">
+            <label for="title">Enter title </label>
+            <input type="text" th:field="*{title}" id="title"/>
+            <div style="color:red" th:if="${#fields.hasErrors('title')}"
+                 th:errors="*{title}">first name error</div>
+            <br/>
+
+            <label for="information">Enter information </label>
+            <input type="text" th:field="*{information}" id="information"/>
+            <div th:if="${#fields.hasErrors('information')}"
+                 th:errors="*{information}">last name error</div>
+            <br/>
+
+            <label for="bestPrice">Enter your price </label>
+            <input type="text" th:field="*{bestPrice}" id="bestPrice"/>
+            <div th:if="${#fields.hasErrors('bestPrice')}"
+                 th:errors="*{bestPrice}">price starts from 500</div>
+            <br/>
+
+            <input type="submit" value="Create!"/>
+        </form>
+    </div>
+</div>
+<footer class="zone"><p>2021 No rights reserved, I'm just looking for a developer vacancy</a></p></footer>
+</body>
+</html>

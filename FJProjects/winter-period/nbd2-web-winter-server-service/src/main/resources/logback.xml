@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="loggingPattern"
+		value="%date{ISO8601} %-5level %t %logger{0} : %M : %L - %msg%n" />
+	<property name="loggingHome"
+		value="/logs/nbd2-web-winter-server" />
+
+	<appender name="winter"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${loggingHome}/nbd2-web-winter-server.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>2GB</totalSizeCap>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${loggingPattern}</pattern>
+		</encoder>
+	</appender>
+
+
+
+	<root level="debug">
+		<appender-ref ref="winter" />
+	</root>
+</configuration>

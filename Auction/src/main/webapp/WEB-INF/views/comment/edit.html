@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit comment</title>
+    <link rel="stylesheet" th:href="@{/static/css/paintingEdit.css}" />
+</head>
+<body>
+<nav class="zone blue sticky">
+    <ul class="main-nav">
+        <li><a href="/painting/paintings">Paintings</a></li>
+        <li><a href="/author/authors">Authors</a></li>
+        <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/logout}">Log Out</a>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="coverText">
+        <form th:method="PATCH" th:action="@{/comment/{commentId}(commentId=${comment.getId()})}"
+              th:object="${comment}">
+            <label for="text">Enter text for comment </label>
+            <input type="text" th:field="*{text}" id="text"/>
+            <div style="color:red" th:if="${#fields.hasErrors('text')}" th:errors="*{comment}">Name error</div>
+            <br/>
+            <input type="submit" value="Update!"/>
+        </form>
+    </div>
+</div>
+<footer class="zone"><p>2021 No rights reserved,
+    I'm just looking for a developer vacancy</a></p></footer>
+</body>
+</html>

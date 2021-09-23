@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New author</title>
+    <link rel="stylesheet" th:href="@{/static/css/paintingEdit.css}" />
+</head>
+<body>
+<nav class="zone blue sticky">
+    <ul class="main-nav">
+        <li><a href="/painting/paintings">Paintings</a></li>
+        <li><a href="/author/authors">Authors</a></li>
+        <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/logout}">Log Out</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="coverText">
+        <form th:method="POST" th:action="@{/author/create}" th:object="${newAuthor}">
+            <label for="firstName">Enter first name for author </label>
+            <input type="text" th:field="*{firstName}" id="firstName"/>
+            <div style="color:red" th:if="${#fields.hasErrors('firstName')}"
+                 th:errors="*{firstName}">first name error</div>
+            <br/>
+
+            <label for="lastName">Enter last name for author  </label>
+            <input type="text" th:field="*{lastName}" id="lastName"/>
+            <div style="color:red" th:if="${#fields.hasErrors('lastName')}"
+                 th:errors="*{lastName}">last name error</div>
+            <br/>
+
+            <label for="email">Enter email here</label>
+            <input type="text" th:field="*{email}" id="email"/>
+            <div style="color:red" th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">email error</div>
+            <br/>
+
+            <input type="submit" value="Create!"/>
+        </form>
+    </div>
+</div>
+<footer class="zone"><p>2021 No rights reserved,
+    I'm just looking for a developer vacancy</a></p></footer>
+</body>
+</html>

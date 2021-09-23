@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${painting.getTitle()}">title</title>
+    <link rel="stylesheet" th:href="@{/static/css/painting.css}" />
+</head>
+<body>
+<nav class="zone blue sticky">
+    <ul class="main-nav">
+        <li><a href="/painting/paintings">Paintings</a></li>
+        <li><a href="/author/authors">Authors</a></li>
+        <li>             </li>
+        <li sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{'/comment/new/' + ${paintingId}}">Add comment</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{'/painting/edit/' + ${paintingId}}">Update painting</a>
+        </li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <form th:method="DELETE" th:action="@{'/painting/' + ${paintingId}}">
+                <input type="submit" value="Delete painting"/>
+            </form>
+        </li>
+        <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/logout}">Log Out</a>
+        </li>
+        <li class="push" sec:authorize="!hasAnyRole('ADMIN', 'USER')">
+            <a th:href="@{/login}">Log in</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+<div class="container">
+    <img class="cover" th:src="@{'/static/images/' + ${painting.getTitle().toLowerCase()} + '.jpg'}">
+    <div class="coverText"><h1 th:text="${painting.getTitle()}">painting name</h1></div>
+</div>
+
+
+
+<div class="zone blue grid-wrapper">
+    <div class="card zone">
+        <img th:src="@{'/static/images/authors/' + ${painting.getAuthor().getFirstName()}+
+            ${painting.getAuthor().getLastName()} + '.jpg'}">
+        <div class="text">
+            <h1>Author</h1>
+            <p th:text="${painting.getAuthor().getFirstName()} + ' '
+            + ${painting.getAuthor().getLastName()}">name and surname</p>
+            <a th:href="@{'/author/' + ${painting.getAuthor().getId()}}">
+                <button>More about author</button>
+            </a>
+        </div>
+    </div>
+    <div class="card zone"><img th:src="@{/static/images/materials.jpg}">
+        <div class="text">
+            <h1>Size and materials</h1>
+            <p>25x35, oil, canvas</p>
+            <button>Learn more </button>
+        </div>
+    </div>
+    <div class="card zone"><img th:src="@{/static/images/bestPrice.jpg}">
+        <div class="text">
+            <h1>Best price </h1>
+            <h1 th:text="${painting.getBestPrice()} + ' rubles'"></h1>
+        </div>
+    </div>
+
+    <div class="card zone"><img th:src="@{/static/images/comments.jpg}">
+        <div class="text">
+            <h1>Comments</h1>
+            <div th:each="comment:${commentList}">
+                <a th:href="@{'/comment/' + ${comment.getId()}}">
+                    <div class="card zone" >
+                        <p th:text="${comment.getText()}"></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="zone"><p>2021 No rights reserved, by the way I'm looking for a developer vacancy</p></footer>
+</body>
+</html>
