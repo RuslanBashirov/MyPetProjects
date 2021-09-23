@@ -19,14 +19,12 @@ public class CommentController {
     @Autowired
     private CommentDao dao;
 
-    @Transactional
     @GetMapping("/{commentId}")
     public String getCertainCommentPage(Model model, @PathVariable int commentId){
         model.addAttribute("comment", dao.getComment(commentId));
         return "comment/comment";
     }
 
-    @Transactional
     @GetMapping("/new/{paintingId}")
     public String newComment(Model model, @PathVariable int paintingId,
                              @ModelAttribute("newComment") Comment newComment){
@@ -34,7 +32,6 @@ public class CommentController {
         return "comment/new";
     }
 
-    @Transactional
     @PostMapping("/create/{paintingId}")
     public String createComment(@ModelAttribute("newComment") @Valid Comment newComment,
                                 @PathVariable int paintingId, BindingResult bindingResult){
@@ -48,7 +45,6 @@ public class CommentController {
         return "redirect:/painting/"+paintingId;
     }
 
-    @Transactional
     @GetMapping("/edit/{commentId}")
     public String editCertainComment(Model model, @PathVariable int commentId,
                        @ModelAttribute("comment") Comment comment){
@@ -56,7 +52,6 @@ public class CommentController {
         return "comment/edit";
     }
 
-    @Transactional
     @PatchMapping("/{commentId}")
     public String updateCertainComment(@ModelAttribute("comment") @Valid Comment updatedComment,
                          BindingResult bindingResult, @PathVariable int commentId){
@@ -67,7 +62,6 @@ public class CommentController {
         return "redirect:/painting/paintings";
     }
 
-    @Transactional
     @DeleteMapping("/{commentId}")
     public String deleteCertainComment(@PathVariable("commentId") int commentId){
         dao.delete(commentId);

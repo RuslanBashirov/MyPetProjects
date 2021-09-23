@@ -20,14 +20,14 @@ public class AuthorController {
     @Autowired
     private AuthorDao dao;
 
-    @Transactional
+
     @GetMapping("/authors")
     public String getAllAuthorsPage(Model model){
         model.addAttribute("authorList", dao.getListOfAuthors());
         return "author/authorList";
     }
 
-    @Transactional
+
     @GetMapping("/{authorId}")
     public String getCertainAuthorPage(Model model, @PathVariable int authorId){
         Author author = dao.getAuthor(authorId);
@@ -38,13 +38,13 @@ public class AuthorController {
         return "author/author";
     }
 
-    @Transactional
+
     @GetMapping("/new")
     public String newAuthor(@ModelAttribute("newAuthor") Author newAuthor){
         return "author/new";
     }
 
-    @Transactional
+
     @PostMapping("/create")
     public String createAuthor(@ModelAttribute("newAuthor") @Valid Author newAuthor,
                                  BindingResult bindingResult){
@@ -55,7 +55,7 @@ public class AuthorController {
         return "redirect:/author/authors";
     }
 
-    @Transactional
+
     @GetMapping("/edit/{authorId}")
     public String editCertainAuthor(Model model, @ModelAttribute("author") Author author,
                        @PathVariable int authorId){
@@ -64,7 +64,7 @@ public class AuthorController {
         return "author/edit";
     }
 
-    @Transactional
+
     @PatchMapping("/{authorId}")
     public String updateCertainAuthor(@ModelAttribute("author") @Valid Author updatedAuthor,
                          BindingResult bindingResult, @PathVariable int authorId){
@@ -75,7 +75,7 @@ public class AuthorController {
         return "redirect:/author/"+authorId;
     }
 
-    @Transactional
+
     @DeleteMapping("/{authorId}")
     public String deleteCertainAuthor(@PathVariable("authorId") int authorId) {
         dao.delete(authorId);

@@ -19,14 +19,12 @@ public class PaintingController {
     @Autowired
     private PaintingDao dao;
 
-    @Transactional
     @GetMapping("/paintings")
     public String getAllPaintingsPage(Model model){
         model.addAttribute("paintingList", dao.getListOfPaintings());
         return "painting/paintingList";
     }
 
-    @Transactional
     @GetMapping("/{paintingId}")
     public String getCertainPainting(Model model, @PathVariable int paintingId){
         final Painting painting = dao.getPainting(paintingId);
@@ -37,7 +35,6 @@ public class PaintingController {
         return "painting/painting";
     }
 
-    @Transactional
     @GetMapping("/new/{authorId}")
     public String newPainting(Model model, @PathVariable int authorId,
                               @ModelAttribute Painting newPainting){
@@ -47,7 +44,6 @@ public class PaintingController {
     }
 
 
-    @Transactional
     @PostMapping("/create/{authorId}")
     public String createPainting(@PathVariable("authorId") int authorId,
                                  @ModelAttribute("newPainting") @Valid Painting newPainting,
@@ -63,7 +59,6 @@ public class PaintingController {
         return "redirect:/author/authors";
     }
 
-    @Transactional
     @GetMapping("/edit/{paintingId}")
     public String editCertainPainting(Model model, @ModelAttribute("painting") Painting painting,
                        @PathVariable int paintingId){
@@ -73,7 +68,6 @@ public class PaintingController {
         return "painting/edit";
     }
 
-    @Transactional
     @PatchMapping("/{paintingId}")
     public String updateCertainPainting(@ModelAttribute("painting") @Valid Painting updatedPainting,
                          BindingResult bindingResult, @PathVariable int paintingId) {
@@ -83,7 +77,6 @@ public class PaintingController {
         return "redirect:/painting/"+paintingId;
     }
 
-    @Transactional
     @DeleteMapping("/{paintingName}")
     public String deleteCertainPainting(@PathVariable int paintingName){
         dao.delete(paintingName);
