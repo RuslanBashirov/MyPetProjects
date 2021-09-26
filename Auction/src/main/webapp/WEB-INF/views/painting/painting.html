@@ -8,8 +8,8 @@
 <body>
 <nav class="zone blue sticky">
     <ul class="main-nav">
-        <li><a href="/painting/paintings">Paintings</a></li>
-        <li><a href="/author/authors">Authors</a></li>
+        <li><a href="/auction/painting/paintings">Paintings</a></li>
+        <li><a href="/auction/author/authors">Authors</a></li>
         <li>             </li>
         <li sec:authorize="hasAnyRole('ADMIN', 'USER')">
             <a th:href="@{'/comment/new/' + ${paintingId}}">Add comment</a>
@@ -42,13 +42,13 @@
 
 <div class="zone blue grid-wrapper">
     <div class="card zone">
-        <img th:src="@{'/static/images/authors/' + ${painting.getAuthor().getFirstName()}+
+        <img th:src="@{'/auction/static/images/authors/' + ${painting.getAuthor().getFirstName()}+
             ${painting.getAuthor().getLastName()} + '.jpg'}">
         <div class="text">
             <h1>Author</h1>
             <p th:text="${painting.getAuthor().getFirstName()} + ' '
             + ${painting.getAuthor().getLastName()}">name and surname</p>
-            <a th:href="@{'/author/' + ${painting.getAuthor().getId()}}">
+            <a th:href="@{'/auction/author/' + ${painting.getAuthor().getId()}}">
                 <button>More about author</button>
             </a>
         </div>
@@ -71,7 +71,7 @@
         <div class="text">
             <h1>Comments</h1>
             <div th:each="comment:${commentList}">
-                <a th:href="@{'/comment/' + ${comment.getId()}}">
+                <a th:href="@{'/auction/comment/' + ${comment.getId()}}">
                     <div class="card zone" >
                         <p th:text="${comment.getText()}"></p>
                     </div>

@@ -11,11 +11,11 @@
 <body>
 <nav class="zone blue sticky">
     <ul class="main-nav">
-        <li><a href="/painting/paintings">Paintings</a></li>
-        <li><a href="/author/authors">Authors</a></li>
+        <li><a href="/auction/painting/paintings">Paintings</a></li>
+        <li><a href="/auction/author/authors">Authors</a></li>
         <li>             </li>
         <li sec:authorize="hasRole('ADMIN')">
-            <a href="/author/new">Add author</a>
+            <a href="/auction/author/new">Add author</a>
         </li>
         <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
             <a th:href="@{/logout}">Log Out</a>
@@ -32,7 +32,7 @@
             ${author.getLastName()} + '.jpg'}">
         <p th:text="${author.getFirstName()} + ' '
             + ${author.getLastName()}">name and surname</p>
-        <a th:href="@{'/author/' + ${author.getId()}}">
+        <a th:href="@{'/auction/author/' + ${author.getId()}}">
             <button>More about author</button>
         </a>
     </div>

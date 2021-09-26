@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "comment", schema = "auction")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

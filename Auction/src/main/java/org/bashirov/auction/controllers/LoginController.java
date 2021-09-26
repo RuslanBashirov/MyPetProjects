@@ -1,5 +1,7 @@
 package org.bashirov.auction.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -13,17 +15,22 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController {
-    @GetMapping("/login")
-    public String showLoginPage(){
-        return "login";
-    }
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "login";
-    }
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+
+	@GetMapping("/login")
+	public String showLoginPage() {
+		LOGGER.info("in login");
+
+		return "login";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "login";
+	}
 }

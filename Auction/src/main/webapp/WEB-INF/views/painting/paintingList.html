@@ -10,8 +10,8 @@
 <body>
 <nav class="zone blue sticky">
     <ul class="main-nav">
-        <li><a href="/painting/paintings">Paintings</a></li>
-        <li><a href="/author/authors">Authors</a></li>
+        <li><a href="/auction/painting/paintings">Paintings</a></li>
+        <li><a href="/auction/author/authors">Authors</a></li>
         <li class="push" sec:authorize="hasAnyRole('ADMIN', 'USER')">
             <a th:href="@{/logout}">Log Out</a>
         </li>

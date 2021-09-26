@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class AuthorDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Transactional
     public List<Author> getListOfAuthors(){
         Session currentSession = sessionFactory.getCurrentSession();
 
@@ -26,6 +28,7 @@ public class AuthorDao {
         return authors;
     }
 
+    @Transactional
     public Author getAuthor(Integer authorId){
         Session currentSession = sessionFactory.getCurrentSession();
         Author author = currentSession.get(Author.class, authorId);
@@ -33,11 +36,13 @@ public class AuthorDao {
         return author;
     }
 
+    @Transactional
     public void save(Author author){
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(author);
     }
 
+    @Transactional
     public void update(int authorId, Author updatedAuthor){
         Session currentSession = sessionFactory.getCurrentSession();
 
@@ -50,6 +55,7 @@ public class AuthorDao {
         currentSession.update("author", author);
     }
 
+    @Transactional
     public void delete(int authorId){
         Session currentSession = sessionFactory.getCurrentSession();
         Author author = this.getAuthor(authorId);

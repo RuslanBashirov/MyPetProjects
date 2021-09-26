@@ -37,9 +37,9 @@ public class HibernateConf {
             e.printStackTrace();
             throw new RuntimeException();
         }
-        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/auction?useSSL=false&amp;serverTimezone=UTC");
-        dataSource.setUser("postgres");
-        dataSource.setPassword("");
+        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/petprojects");
+        dataSource.setUser("ruslan");
+        dataSource.setPassword("ruslan");
         dataSource.setInitialPoolSize(3);
         dataSource.setMinPoolSize(3);
         dataSource.setMaxPoolSize(15);
