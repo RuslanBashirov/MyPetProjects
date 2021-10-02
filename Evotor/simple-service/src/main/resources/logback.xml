@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="loggingPattern"
+		value="%date{ISO8601} %-5level %t %logger{0} : %M : %L - %msg%n" />
+
+	<appender name="service"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/logs/distributed-simple-service/distributed-simple-service.log
+		</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>simple-service.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>10</maxHistory>
+			<totalSizeCap>2GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${loggingPattern}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- <logger level="debug" additivity="false" name="ru.bashirov.fjproj.service"> 
+		<appender-ref ref="BARCODE" /> </logger> -->
+
+	<root level="debug">
+		<appender-ref ref="service" />
+	</root>
+</configuration>
