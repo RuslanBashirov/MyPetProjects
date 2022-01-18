@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="fjproj-barcode-service:war">
+    <output-path>$PROJECT_DIR$/barcode-spring/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>fjproj-barcode-service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="fjproj-barcode-service.war">
+      <element id="artifact" artifact-name="fjproj-barcode-service:war exploded" />
+    </root>
+  </artifact>
+</component>
