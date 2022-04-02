@@ -8,6 +8,7 @@ import ru.bashirov.fjproj.service.barcode.Util;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BarcodeDao implements BarcodeService {
 
@@ -33,6 +34,7 @@ public class BarcodeDao implements BarcodeService {
             st.setString(3, data);
             st.setInt(4, method);
             st.executeUpdate();
+            con.commit();
 
             LOGGER.debug("added barcode with type {} and id {}", type, id);
         } finally {
@@ -84,21 +86,21 @@ public class BarcodeDao implements BarcodeService {
     public List<String> getInfoByBuildingId(Connection con, int buildingId) throws SQLException {
         CallableStatement st = null;
         ResultSet rs = null;
+        String data = null;
         try {
-            List<String> info = new ArrayList<String>(2);
-//            st = con.prepareCall("SELECT inv_number,net_number FROM erto_bld WHERE building_id=?");
-//            st.setInt(1, buildingId);
-//            st.execute();
-//            rs = (ResultSet) st.getObject(1);
-//
-//            if (rs.next()) {
-//                info.add(rs.getString("inv_number"));
-//                info.add(rs.getString("net_number"));
-//            }
-            info.add("42134");
-            info.add("5646");
+            List<String> info = new ArrayList<>(1);
+            st = con.prepareCall("SELECT data FROM barcode WHERE id=?");
+            st.setInt(1, buildingId);
+            rs = st.executeQuery();
 
-            LOGGER.debug("got additional info for passport_id {}", buildingId);
+            if (rs.next()) {
+                data = rs.getString("data");
+            }
+
+            info.add(data);
+            info.add("123");
+
+            LOGGER.debug("got data {} for id = {}", data, buildingId);
             return info;
         } finally {
             Util.closeRsAndSt(rs, st);

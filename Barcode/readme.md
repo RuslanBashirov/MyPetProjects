@@ -27,7 +27,11 @@ Input params:
 returns void  
   
   
-### Tables creation  
+### Tables creation
+create user ruslan with encrypted password 'ruslan';
+create database petprojects;
+grant all privileges on database petprojects to ruslan;
+psql -d petprojects -U ruslan
 CREATE TABLE barcode(  
 type int not null,  
 id int not null,  

@@ -1,0 +1,33 @@
+version: "3"
+services: 
+    barcode-spring-6:
+        image: barcodejar10
+        ports:
+         - "8080:8081"
+        networks:
+         - barcode-postgres
+        depends_on:
+         - postgres
+         
+    postgres:
+        image: postgres
+        networks:
+         - barcode-postgres
+        environment:
+         - POSTGRES_USER=ruslan
+         - POSTGRES_PASSWORD=ruslan
+         - POSTGRES_DB=petprojects
+        volumes:
+         - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+         
+           zoo1:
+    image: zookeeper:3.7.0
+    container_name: my-zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+    networks: 
+      - searching-service-network
+         
+networks:
+    barcode-postgres:

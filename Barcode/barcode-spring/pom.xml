@@ -12,7 +12,7 @@
 	<groupId>ru.bashirov.fjproj.service</groupId>
 	<artifactId>fjproj-barcode-service</artifactId>
 	<version>1.0.0</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>barcode</name>
 	<description>main spring boot app</description>
 	<properties>
